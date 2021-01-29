@@ -126,3 +126,4 @@ dmypy.json
 
 dataset/*
 !dataset/.gitkeep
+!dataset/meta.json
