@@ -4,14 +4,14 @@ import unicodedata
 import string
 import json
 from collections import OrderedDict
+import torch
 
 log = "-------Data Preprocessing-------"
-
 all_letters = string.ascii_letters + " .,;'"
+n_letters = len(all_letters)
 
 
 def unicodeToAscii(s):
-    n_letters = len(all_letters)
 
     return ''.join(
         c for c in unicodedata.normalize('NFD', s)
@@ -26,8 +26,21 @@ def readlines(filename):
     return lines
 
 
-def letterToTensor(letter):
+def letterToIndex(letter):
     return all_letters.find(letter)
+
+
+def lineToTensor(line):
+    tensor = torch.zeros(len(line), 1, n_letters)
+    for i, le in enumerate(line):
+        tensor[i, 0, letterToIndex(le)] = 1
+    return tensor
+
+
+def labelToTensor(label, labels):
+    tensor = torch.zeros(1, len(labels))
+    tensor[0, labels.index(label)] = 1
+    return tensor
 
 
 def main():
@@ -49,6 +62,7 @@ def main():
 
     meta_data["languages"] = all_categories
     meta_data["num_categories"] = len(all_categories)
+    meta_data["num_letters"] = n_letters
     meta_data["num_names"] = num_names
     data_set["meta"] = meta_data
     data_set["data"] = data_dict
@@ -59,7 +73,11 @@ def main():
     with open(r"..\dataset\raw_data_formatted.json", "w") as File:
         File.write(json.dumps(data_set, indent=6))
 
+    with open(r"..\dataset\meta.json", "w") as File:
+        File.write(json.dumps(meta_data, indent=6))
+
 
 if __name__ == "__main__":
     print(log)
     main()
+    print(lineToTensor("jonas").size())
