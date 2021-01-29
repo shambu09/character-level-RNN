@@ -1,5 +1,7 @@
 from preprocess import lineToTensor, labelToTensor, letterToIndex
 
+log = "Utils Module"
+
 
 def meta():
     import json

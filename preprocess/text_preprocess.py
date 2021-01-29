@@ -6,7 +6,7 @@ import json
 from collections import OrderedDict
 import torch
 
-log = "-------Data Preprocessing-------"
+log = "Data Preprocessing"
 all_letters = string.ascii_letters + " .,;'"
 n_letters = len(all_letters)
 

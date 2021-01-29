@@ -3,6 +3,7 @@ from utils import meta, lineToTensor, labelToTensor
 import string
 import torch
 
+log = "Training"
 meta_data = meta()
 num_hidden = 128
 num_letters = meta_data["num_letters"]
