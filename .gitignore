@@ -123,3 +123,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+dataset/raw_data.json
+dataset/raw_data_formatted.json
