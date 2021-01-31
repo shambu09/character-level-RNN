@@ -125,5 +125,7 @@ dmypy.json
 .pyre/
 
 dataset/*
+weights/*
 !dataset/.gitkeep
 !dataset/meta.json
+!weights/.gitkeep
