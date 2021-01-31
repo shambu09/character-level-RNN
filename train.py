@@ -62,7 +62,8 @@ def main():
         if (iter_n + 1) % print_every == 0:
             guess, guess_i = categoryFromOutput(output, data.languages)
             correct = f"Correct!" if category == guess else f"Wrong, guessed :{guess}"
-            print(f"iterations: {iter_n}, {int(iter_n/n_iters) * 100}% Completed, time:{timeSince(start)}, loss: {loss:0.6f}, name: {line}, Origin: {category}, guess: {correct}")
+            print(f"iterations: {iter_n + 1}, {int((iter_n + 1)/n_iters * 100)}% Completed, time:{timeSince(start)}, loss: {loss:0.6f}, name: {line}, Origin: {category}, guess: {correct}")
+
 
         if iter_n % plot_every == 0:
             all_losses.append(current_loss / plot_every)
