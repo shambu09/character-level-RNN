@@ -26,8 +26,6 @@ learning_rate = 0.005
 optimizer = torch.optim.SGD(rnn.parameters(), lr=learning_rate)
 
 # Train block for a single word.
-
-
 def train(label_tensor, line_tensor):
     hidden = rnn.initHidden().to(device)
     rnn.zero_grad()
