@@ -1,25 +1,29 @@
 import json
 from collections import OrderedDict
 import torch
-from text_preprocess import lineToTensor, labelToTensor
+from text_preprocess import lineToTensor
 
 
 log = "Dataset Creation"
 
 
 def main():
-    with open("../dataset/raw_data.json", "r") as File:
+    with open("../dataset/raw_data/raw_data.json", "r") as File:
         data = json.loads(File.read(), object_pairs_hook=OrderedDict)
 
     tensors = OrderedDict()
     catagories = data["meta"]["languages"]
 
-    for name in data["data"].keys():
-        for i in range(len(data["data"][name])):
-            tensors[labelToTensor(name, catagories)] = lineToTensor(data["data"][name][i])
-        print(f"Done {name}")
+    for lang in data["data"].keys():
+        tensors[lang] = []
+        for name in data["data"][lang]:
+            tensors[lang].append(lineToTensor(name))
+        print(f"Done {lang}")
 
-    print(len(tensors.keys()), data["meta"]["num_names"])
+    n = 0
+    for i in tensors.values():
+        n += len(i)
+    print(n, data["meta"]["num_names"])
     torch.save(tensors, "../dataset/dataset.pt")
 
 if __name__ == "__main__":

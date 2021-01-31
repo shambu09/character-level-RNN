@@ -37,14 +37,8 @@ def lineToTensor(line):
     return tensor
 
 
-def labelToTensor(label, labels):
-    tensor = torch.zeros(1, len(labels))
-    tensor[0, labels.index(label)] = 1
-    return tensor
-
-
 def main():
-    directory = r"..\dataset\text_data\names\*"
+    directory = r"../dataset/text_data/names/*"
     files = glob.glob(directory)
 
     data_dict = OrderedDict()
@@ -64,17 +58,19 @@ def main():
     meta_data["num_categories"] = len(all_categories)
     meta_data["num_letters"] = n_letters
     meta_data["num_names"] = num_names
+    meta_data["all_letters"] = all_letters
     data_set["meta"] = meta_data
     data_set["data"] = data_dict
 
-    with open(r"..\dataset\raw_data.json", "w") as File:
+    with open(r"../dataset/raw_data/raw_data.json", "w") as File:
         File.write(json.dumps(data_set))
 
-    with open(r"..\dataset\raw_data_formatted.json", "w") as File:
+    with open(r"../dataset/raw_data/raw_data_formatted.json", "w") as File:
         File.write(json.dumps(data_set, indent=6))
 
-    with open(r"..\dataset\meta.json", "w") as File:
+    with open(r"../dataset/meta.json", "w") as File:
         File.write(json.dumps(meta_data, indent=6))
+        print("done")
 
 
 if __name__ == "__main__":
